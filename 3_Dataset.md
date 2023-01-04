@@ -87,8 +87,9 @@ __*Impossible to find the average since there is no yield or sales data*__
 2. Get product detail id with corresponding product code from Product Detail entity.
 3. Get date and price data by filtering the Price entity based on fetched product detail id. (Period condition can be added)
 4. Get maximum, minimum price grouped by date.
+
 <br>
-<br>
+
 ### Price difference according to the grade of each agricultural product
 __*More meaningful analysis will be possible with demand data*__
 1. Check product code.
@@ -96,8 +97,9 @@ __*More meaningful analysis will be possible with demand data*__
 3. Get grades, date and price data by filtering the Price entity based on fetched product detail id. (Period condition can be added)
 4. For each grade:
    1. Get maximum, minimum price grouped by date for each grade. 
+   
 <br>
-<br>
+
 ### Differences in price by country for the same variety
 __*More meaningful analysis will be possible with import cost data*__
 1. Check product code and variety.
@@ -105,8 +107,9 @@ __*More meaningful analysis will be possible with import cost data*__
 3. For each country code:
    1. Get product detail id with corresponding product code and variety from Product Detail entity.
    2. Get maximum, minimum price grouped by date.
+
 <br>
-<br>
+
 ### Regional price differences within the same country
 1. Check country code.
 2. Get product detail id and region code with corresponding country code from Product Detail entity.

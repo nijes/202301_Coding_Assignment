@@ -4,8 +4,9 @@
 
 * Basic Premise
   * If managed in characters, there are various difficulties such as typos, synonyms, DB capacity, encoding problems, etc. 
-    Convert to numbers if possible.
-  * Organize separte entities or documentation for data that is highly standardized and unlikely to change in future.
+    Convert to number if possible.
+  * Organize separate entities or documentation for data that is highly standardized and unlikely to change in future.
+  * Save as much raw data as possible. (Restrain grouping during preprocessing)
 
 * Processing method for each field
   * **[Product]**
@@ -72,11 +73,11 @@
   * **(2)** *Garlic (#239),South Korea,Garlic / Variety / Hanji,Garlic / Grade / High Quality,Seoul*
 
 * #### [Table_5] Price Table
-  product_detail_id | grades |   date    | price
-  :---------------: |:-----: |:---------:| :---:
-    1   | 2 | 2020-11-16 | 4.15
-    1   | 2 | 2020-11-09 | 4.34
-    2   | 1 | 2020-11-16 | 8.18
+  price_id | product_detail_id | grades |   date    | price
+  :------: |:-----------------:|:-----: |:---------:| :---:
+   1 |         1         |         2          | 2020-11-16 | 4.15
+   2 |         1         |         2         | 2020-11-09 | 4.34
+   3 |         2         |         1         | 2020-11-16 | 8.18
 
 <br><br>
 
@@ -121,6 +122,7 @@ __*More meaningful analysis will be possible with import cost data*__
 <br><br>
 
 ## Script to put in db
+
 ### Basic considerations
 * Database
   * It is assumed that RDB is used.
@@ -134,7 +136,24 @@ __*More meaningful analysis will be possible with import cost data*__
   * It should be in line with company-wide development standards.
   * Can be easily converted using regular expressions.
 
-### Writing...
+### Pre-work
+* Since the product, country and region are already set, the corresponding tables are created in the DB in advance.
+
+### Shape processing
+__*Only Product Detail table and Price table are modified*__
+1. Extract id number from the product field and change it to product_id
+2. Change the variety, grades, and region fields to the desired form using regular expression processing
+3. Connect the Region Code and Country Code tables of the database. 
+4. Join original data with 2 tables based on country name and region name.
+5. After checking the id of the existing table in the db, add a product_detail_id field that increases by 1 thereafter.
+
+[Product Detail table]
+1. Select only product_detail_id, product_id, variety, country_code, region_code and append them Product Detail table in db.
+
+[Price table]
+1. Remove unnecessary fields to leave only product_detail_id, grades, date(many) fields.
+2. Convert date fields into rows by pivot conversion.
+3. Append corresponding data to Price table. (price_id is auto increment)
 
 
 ### Other considerations 

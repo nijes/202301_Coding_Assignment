@@ -5,7 +5,6 @@ def sunday_1st():
         for month in range(1, 13):
             # Check if the first day of the month is Sunday
             if day_diff % 7 == 6:
-                print(year, month)
                 answer += 1
             # Add the number of days in the month to 'day_diff'
             if month in [1, 3, 5, 7, 8, 10, 12]:
